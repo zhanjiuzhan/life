@@ -5,7 +5,7 @@ import org.jcl.life.user.UserDao;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class UserDaoMysqlImpl implements UserDao {
 	@Override
 	public User getUser() {
 		User user = new User();

@@ -1,6 +1,6 @@
 package org.jcl.life.string;
 
-final public class StringUtil {
+final public class StringUtils {
 
 	/**
 	 * 判断字符串是否有效
