@@ -1,6 +1,6 @@
 package org.jcl.life.time;
 
-import org.jcl.life.string.StringUtil;
+import org.jcl.life.string.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +15,7 @@ final public class TimeUtil {
 	 */
 	public static String getTodayTime(final String format) {
 		SimpleDateFormat sdf =
-				new SimpleDateFormat(StringUtil.isEmpty(format) ? defaultOneDateFmt : format);
+				new SimpleDateFormat(StringUtils.isEmpty(format) ? defaultOneDateFmt : format);
 		return sdf.format(new Date());
 	}
 
