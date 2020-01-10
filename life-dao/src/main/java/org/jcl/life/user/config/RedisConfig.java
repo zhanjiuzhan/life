@@ -19,7 +19,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
 		// 配置连接工厂
 		template.setConnectionFactory(factory);
-
+		// 使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值(默认使用JDK的序列化方式)
 
 		return template;
 	}
