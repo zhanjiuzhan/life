@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-final public class TimeUtil {
+final public class TimeUtils {
 	private static Logger logger =
-			LoggerFactory.getLogger(TimeUtil.class);
+			LoggerFactory.getLogger(TimeUtils.class);
 	public final static String defaultOneDateFmt = "yyyy/MM/dd";
 	public final static String defaultOneDateFmtTime = "yyy/MM/dd HH:mm:ss";
 	public static final String[] zodiacArr = { "猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊" };
