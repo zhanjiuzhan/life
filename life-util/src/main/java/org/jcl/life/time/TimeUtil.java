@@ -1,16 +1,9 @@
 package org.jcl.life.time;
 
-import net.sf.json.JSONObject;
-import org.jcl.life.string.StringUtil;
+import org.jcl.life.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,7 +24,7 @@ final public class TimeUtil {
 		logger.debug("getTodayTime  begin");
 		logger.info("getTodayTime  begin");
 		SimpleDateFormat sdf =
-				new SimpleDateFormat(StringUtil.isEmpty(format) ? defaultOneDateFmt : format);
+				new SimpleDateFormat(StringUtils.isEmpty(format) ? defaultOneDateFmt : format);
 		logger.info("sdf=[{}]",sdf);
 		return sdf.format(new Date());
 	}
@@ -58,7 +51,7 @@ final public class TimeUtil {
 	 * @return
 	 */
 	public static String getZodica(Date date) {
-		date = StringUtil.isEmpty(date) ? new Date() : date;
+		date = StringUtils.isEmpty(date) ? new Date() : date;
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 //		System.out.println("year:"+cal.get(Calendar.YEAR));
@@ -71,7 +64,7 @@ final public class TimeUtil {
 	 * @return
 	 */
 	public static String getConstellation(Date date) {
-		date = StringUtil.isEmpty(date) ? new Date() : date;
+		date = StringUtils.isEmpty(date) ? new Date() : date;
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		int month = cal.get(Calendar.MONTH);
@@ -104,7 +97,7 @@ final public class TimeUtil {
 	 * @return
 	 */
 	public static List<Integer> getYearAndMonth(Date date) {
-		date = StringUtil.isEmpty(date) ? new Date() : date;
+		date = StringUtils.isEmpty(date) ? new Date() : date;
 		List<Integer> list = new ArrayList<Integer>();
 		Calendar cale = null;
 		cale = Calendar.getInstance();
@@ -123,6 +116,7 @@ final public class TimeUtil {
 	 * @param CityName  城市名
 	 *注：参数字符串，如果拼接在请求链接之后，需要对中文进行 URLEncode   字符集 UTF-8，转化方式在下面，直接传过去就好了
 	 */
+	/*
 	public static Map<String, Object> getTodayWeather1(String CityName)
 			throws IOException, NullPointerException {
 		// 连接和风天气的API
@@ -184,6 +178,7 @@ final public class TimeUtil {
 	 * @param Cityid
 	 *            城市编码
 	 */
+	/*
 	public static Map<String, Object> getTodayWeather2(String Cityid)
 			throws IOException, NullPointerException {
 		// 连接中央气象台的API
@@ -215,6 +210,6 @@ final public class TimeUtil {
 			System.out.println("加载文件出错");
 		}
 		return map;
-	}
+	}*/
 
 }
