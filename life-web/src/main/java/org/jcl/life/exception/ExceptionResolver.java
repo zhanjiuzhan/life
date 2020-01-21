@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class ExceptionResolver implements HandlerExceptionResolver {
-	private static Logger logger =
-			LoggerFactory.getLogger(ExceptionResolver.class);
+    private static Logger logger =
+            LoggerFactory.getLogger(ExceptionResolver.class);
 
-	@Override
-	public ModelAndView resolveException(HttpServletRequest request,
-										 HttpServletResponse response,
-										 Object handler, Exception e) {
-		HandlerMethod handlerTmp = (HandlerMethod)handler;
-		logger.info("发生异常: [{}]", request.getAttribute("javax.servlet.error" +
-				".exception_type"));
-		return null;
-	}
+    @Override
+    public ModelAndView resolveException(HttpServletRequest request,
+                                         HttpServletResponse response,
+                                         Object handler, Exception e) {
+        HandlerMethod handlerTmp = (HandlerMethod) handler;
+        logger.info("发生异常: [{}]", request.getAttribute("javax.servlet.error" +
+                ".exception_type"));
+        return null;
+    }
 }

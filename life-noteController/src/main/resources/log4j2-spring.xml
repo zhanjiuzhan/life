@@ -8,13 +8,13 @@
     <appenders>
         <!--添加一个控制台追加器-->
         <Console name="CONSOLE" target="SYSTEM_OUT">
-            <PatternLayout pattern="${PATTERN}" />
+            <PatternLayout pattern="${PATTERN}"/>
         </Console>
     </appenders>
 
     <loggers>
         <root level="info">
-            <appenderref ref="CONSOLE" />
+            <appenderref ref="CONSOLE"/>
         </root>
     </loggers>
 </configuration>

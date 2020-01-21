@@ -9,8 +9,8 @@ import java.util.Date;
 
 public class TimeUtilTest {
 
-	@Test
-	public void getTodayTimeTest() throws ParseException, IOException {
+    @Test
+    public void getTodayTimeTest() throws ParseException, IOException {
 		/*
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println(TimeUtil.getTodayTime());
@@ -22,5 +22,5 @@ public class TimeUtilTest {
 		System.out.println(TimeUtil.getTodayWeather2("101110908"));
 		System.out.println(TimeUtil.getTodayWeather1("耀州区"));
 		 */
-	}
+    }
 }

@@ -8,20 +8,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BeanInitializationExecutor implements BeanPostProcessor {
-	private static Logger logger =
-			LoggerFactory.getLogger(BeanInitializationExecutor.class);
+    private static Logger logger =
+            LoggerFactory.getLogger(BeanInitializationExecutor.class);
 
-	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		return bean;
-	}
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        return bean;
+    }
 
-	@Override
-	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-			String beanClassName = bean.getClass().getName();
-		if (beanClassName.contains("org.jcl.life")) {
-			logger.info("Bean 初始化完成: [{}]", beanClassName);
-		}
-		return bean;
-	}
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        String beanClassName = bean.getClass().getName();
+        if (beanClassName.contains("org.jcl.life")) {
+            logger.info("Bean 初始化完成: [{}]", beanClassName);
+        }
+        return bean;
+    }
 }
