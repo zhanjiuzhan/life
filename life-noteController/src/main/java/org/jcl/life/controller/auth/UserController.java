@@ -3,6 +3,8 @@ package org.jcl.life.controller.auth;
 import org.jcl.life.auth.*;
 import org.jcl.life.result.RetResult;
 import org.jcl.life.string.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/auth")
 public class UserController {
+
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -54,6 +58,7 @@ public class UserController {
                 ret.setRetCode(RetResult.CODE500);
             }
         }
+        //logger.info(user.toString() + "添加成功。");
         return ret;
     }
 

@@ -24,5 +24,24 @@
 
     <build>
         <finalName>note</finalName>
+        <!-- Maven编译对文件过滤 取消ttf woff文件过滤 用于element-vue -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.ttf</exclude>
+                    <exclude>**/*.woff</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.ttf</include>
+                    <include>**/*.woff</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>
