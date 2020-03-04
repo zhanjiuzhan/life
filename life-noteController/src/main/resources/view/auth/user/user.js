@@ -1,26 +1,27 @@
 var myuser = new Vue({
     el: '#user',
     data: {
-
         form: {
             name: '',
         },
         userInfo: [],
-        search: ''
+        search: '',
+        drawer: false,
+        direction: 'ltr',
+        size: '10%',
+        isMenuOpen: true,
+        isMenuClose: true,
     },
-
     created() {
         console.log("初始化...");
         this.getUserInfo();
     },
     methods: {
         handleEdit(index, row) {
-
             let url = 'http://localhost:8081/note/auth/updateUser';
             axios.post(url,
                 row
             ).then ((res) => {
-
                 console.log(res.data);
                 this.$message({
                     message: '用户修改成功',
@@ -28,11 +29,9 @@ var myuser = new Vue({
                 });
                 this.getUserInfo();
             }).catch(function (error) {
-                alert("error");
                 console.log(error);
                 this.$message.error('用户修改失败');
             });
-
             console.log(index, row);
         },
         handleDelete(index, row) {
@@ -44,10 +43,19 @@ var myuser = new Vue({
                 console.log(res.data.data);
                 this.userInfo = res.data.data;
             }).catch(function (error) {
-
                 console.log(error);
                 this.$message.error('获取用户信息失败');
             });
+        },
+        menuClose() {
+            console.log('menuClose');
+            this.isMenuClose=true;
+            this.isMenuOpne=false;
+        },
+        menuOpen() {
+            console.log('menuOpen');
+            this.isMenuClose=false;
+            this.isMenuOpne=true;
         }
     }
 });

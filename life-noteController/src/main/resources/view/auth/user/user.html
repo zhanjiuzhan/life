@@ -7,10 +7,19 @@
     <script src="../../ele-vue/vue-axios.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../../ele-vue/element-vue.css"/>
     <script src="../../ele-vue/element-vue.js"></script>
+    <style>
+        .menuOpen {
+            margin-left: 10%;
+            transitionProperty: margin;
+        }
+
+        .menuClose {
+            margin-left: 0;
+            transitionProperty: margin;
+        }
+    </style>
 </head>
 <body>
-    <div>用户表示</div>
-    <hr/>
     <div id="app" style="float: right">
         <el-button  type="text" @click="clear">新增用户</el-button>
         <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
@@ -29,36 +38,56 @@
         </el-dialog>
     </div>
     <div id="user">
-        <template>
-            <el-table
-                    :data="userInfo.filter(data => !search || data.userName.toLowerCase().includes(search.toLowerCase()))"
-                    style="width: 100%">
-                <el-table-column
-                        label="用户名"
-                        prop="userName">
-                </el-table-column>
-                <el-table-column
-                        align="right">
-                    <template slot="header" slot-scope="scope">
-                        <el-input
-                                v-model="search"
-                                size="mini"
-                                placeholder="输入关键字搜索"/>
-                    </template>
-                    <template slot-scope="scope">
-                        <el-button
-                                size="mini"
-                                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                        <el-button
-                                size="mini"
-                                type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </template>
+        <div :class="{ menuOpen: isMenuOpen, menuClose: isMenuClose }">
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <span><b>用户信息</b></span>
+            </div>
+            <div>
+                <el-table
+                        :data="userInfo.filter(data => !search || data.userName.toLowerCase().includes(search.toLowerCase()))"
+                        style="width: 100%">
+                    <el-table-column
+                            label="用户名"
+                            prop="userName">
+                    </el-table-column>
+                    <el-table-column
+                            align="right">
+                        <template slot="header" slot-scope="scope">
+                            <el-input v-model="search" size="mini" placeholder="输入关键字搜索"></el-input>
+                        </template>
+                        <template slot-scope="scope">
+                            <el-button
+                                    size="mini"
+                                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                            <el-button
+                                    size="mini"
+                                    type="danger"
+                                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </el-card>
+        </div>
+        <div style="position:absolute; left: 2%; top: 35%;opacity:0.5; margin: 0;padding: 0px">
+         <el-button @click="drawer = true" style="width: 0px;height: 200px">
+            >
+         </el-button>
+        </div>
+        <el-drawer
+                :modal="false"
+                :visible.sync="drawer"
+                :show-close="false"
+                :direction="direction"
+                :size="size"
+                @close="menuClose"
+                @open="menuOpen">
+            <div style="margin: 10%">
+                <span>asds</span>
+            </div>
+        </el-drawer>
     </div>
-
 </body>
 <script src="user.js"></script>
 </html>
