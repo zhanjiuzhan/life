@@ -10,32 +10,17 @@
     <style>
         .menuOpen {
             margin-left: 10%;
-            transitionProperty: margin;
+            transitionProperty: margin-left 2s;
         }
-
         .menuClose {
             margin-left: 0;
-            transitionProperty: margin;
+            transitionProperty: margin-left 2s;
         }
     </style>
 </head>
 <body>
     <div id="app" style="float: right">
-        <el-button  type="text" @click="clear">新增用户</el-button>
-        <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
-            <el-form ref="form" :model="form" label-width="100px" :rules="rules">
-                <el-form-item label="用户名" prop="name">
-                    <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
-                </el-form-item>
-                <el-form-item label="密码" prop="password" >
-                    <el-input v-model="form.password" placeholder="请输入密码" show-password></el-input>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="dialogFormVisible = false" @click="destroy-on-close = true">取 消</el-button>
-                <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
-            </div>
-        </el-dialog>
+
     </div>
     <div id="user">
         <div :class="{ menuOpen: isMenuOpen, menuClose: isMenuClose }">
@@ -83,10 +68,39 @@
                 :size="size"
                 @close="menuClose"
                 @open="menuOpen">
-            <div style="margin: 10%">
-                <span>asds</span>
+            <div style="margin: 10%; text-align:center">
+                <el-button icon="el-icon-plus" circle size="medium" @click="openAddDialog"></el-button>
             </div>
         </el-drawer>
+
+        <!-- 添加用户 -->
+        <el-dialog title="添加用户" :visible.sync="addUserDialog">
+            <el-form ref="form" :model="form" label-width="100px" :rules="rules">
+                <el-form-item label="用户名" prop="name">
+                    <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password" >
+                    <el-input v-model="form.password" placeholder="请输入密码" show-password></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false" @click="destroy-on-close = true">取 消</el-button>
+                <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
+            </div>
+        </el-dialog>
+
+        <!-- 编辑用户 -->
+        <el-dialog title="编辑用户" :visible.sync="editUserDialog">
+            <el-form ref="form" :model="form" label-width="100px" :rules="rules">
+                <el-form-item label="用户名" prop="name">
+                    <label>{{ editUser.userName }}</label>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="editUserDialog = false" @click="destroy-on-close = true">取 消</el-button>
+                <el-button type="primary" @click="editSubmit">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </body>
 <script src="user.js"></script>
