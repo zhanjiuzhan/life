@@ -9,39 +9,56 @@
     <script src="../../ele-vue/element-vue.js"></script>
 </head>
 <body>
-<div id="user">
-    <div>用户创建</div>
-    <hr/>
-    <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="用户名">
-            <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="密码">
-            <el-input v-model="form.password"></el-input>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        </el-form-item>
-    </el-form>
     <div>用户表示</div>
     <hr/>
-    <el-table
-            :data="userInfo"
-            style="width: 100%">
-        <el-table-column
-                prop="id"
-                label="标志">
-        </el-table-column>
-        <el-table-column
-                prop="userName"
-                label="用户名">
-        </el-table-column>
-        <el-table-column
-                prop="password"
-                label="密码">
-        </el-table-column>
-    </el-table>
-</div>
+    <div id="app" style="float: right">
+        <el-button  type="text" @click="clear">新增用户</el-button>
+        <el-dialog title="添加用户" :visible.sync="dialogFormVisible">
+            <el-form ref="form" :model="form" label-width="100px" :rules="rules">
+                <el-form-item label="用户名" prop="name">
+                    <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="password" >
+                    <el-input v-model="form.password" placeholder="请输入密码" show-password></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false" @click="destroy-on-close = true">取 消</el-button>
+                <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
+            </div>
+        </el-dialog>
+    </div>
+    <div id="user">
+        <template>
+            <el-table
+                    :data="userInfo.filter(data => !search || data.userName.toLowerCase().includes(search.toLowerCase()))"
+                    style="width: 100%">
+                <el-table-column
+                        label="用户名"
+                        prop="userName">
+                </el-table-column>
+                <el-table-column
+                        align="right">
+                    <template slot="header" slot-scope="scope">
+                        <el-input
+                                v-model="search"
+                                size="mini"
+                                placeholder="输入关键字搜索"/>
+                    </template>
+                    <template slot-scope="scope">
+                        <el-button
+                                size="mini"
+                                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button
+                                size="mini"
+                                type="danger"
+                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </template>
+    </div>
+
 </body>
 <script src="user.js"></script>
 </html>

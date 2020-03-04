@@ -84,6 +84,7 @@ public class UserController {
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public RetResult updateUsers(User user) {
+        System.out.println("user1111111 = " + user);
         RetResult ret = new RetResult<User, String>();
         if (StringUtils.isNotEmpty(user.getId(), user.getUserName(),
                 user.getPassword())) {
