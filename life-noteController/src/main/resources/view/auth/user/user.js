@@ -1,4 +1,4 @@
-var myuser = new Vue({
+new Vue({
     el: '#user',
     data: {
         form: {
