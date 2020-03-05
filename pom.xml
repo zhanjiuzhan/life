@@ -97,8 +97,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <!-- 打包的时候可以不用包进去，别的设施会提供。事实上该依赖理论上可以参与编译，测试，运行等周期。
-                相当于compile，但是打包阶段做了exclude操作 -->
-            <scope>provided</scope>
+                相当于compile，但是打包阶段做了exclude操作 provided-->
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -109,6 +109,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+<!--        &lt;!&ndash;添加热部署&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-devtools</artifactId>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <plugins>
@@ -119,6 +125,15 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                &lt;!&ndash;热部署配置&ndash;&gt;-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash;fork:如果没有该项配置,整个devtools不会起作用&ndash;&gt;-->
+<!--                    <fork>true</fork>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

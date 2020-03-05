@@ -37,7 +37,19 @@ public class UserController {
     @Autowired
     private PermissionAndRoleService permissionAndRoleService;
 
-    @RequestMapping("/getUser")
+    @RequestMapping(value="/checkPwd",method = RequestMethod.POST)
+    public RetResult checkPwd(User user) {
+        RetResult ret = new RetResult<User, String>();
+        if (StringUtils.isNotEmpty(user.getId(),user.getPassword())) {
+            boolean rs = userService.checkPwd(user);
+            if (!rs) {
+                ret.setRetCode(RetResult.CODE500);
+            }
+        }
+        return ret;
+    }
+
+    @RequestMapping(value="/getUser",method = RequestMethod.GET)
     public RetResult getUser(String userId) {
         RetResult ret = new RetResult<User, String>();
         if (StringUtils.isNotEmpty(userId)) {
@@ -73,7 +85,7 @@ public class UserController {
     @RequestMapping(value = "/delUser", method = RequestMethod.POST)
     public RetResult deleteUsers(User user) {
         RetResult ret = new RetResult<User, String>();
-        if (StringUtils.isNotEmpty(user.getId(), user.getUserName())) {
+        if (StringUtils.isNotEmpty(user.getId())) {
             boolean rs = userService.delUser(user.getId());
             if (!rs) {
                 ret.setRetCode(RetResult.CODE500);
@@ -84,7 +96,6 @@ public class UserController {
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public RetResult updateUsers(User user) {
-        System.out.println("user1111111 = " + user);
         RetResult ret = new RetResult<User, String>();
         if (StringUtils.isNotEmpty(user.getId(), user.getUserName(),
                 user.getPassword())) {

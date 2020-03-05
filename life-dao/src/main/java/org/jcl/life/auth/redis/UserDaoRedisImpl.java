@@ -83,6 +83,7 @@ public class UserDaoRedisImpl implements UserDao {
         userMap.forEach((key, value) -> {
             if (null != value) {
                 User user = (User) value;
+                user.setPassword("");
                 users.add(user);
             }
         });

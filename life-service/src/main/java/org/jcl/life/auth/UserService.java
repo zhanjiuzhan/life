@@ -46,4 +46,11 @@ public interface UserService {
      * @return
      */
     User getUserByName(String userName);
+
+    /**
+     * 校验密码
+     * @param user
+     * @return
+     */
+    boolean checkPwd(User user);
 }

@@ -3,6 +3,7 @@ package org.jcl.life.auth.impl;
 import org.jcl.life.auth.User;
 import org.jcl.life.auth.UserDao;
 import org.jcl.life.auth.UserService;
+import org.jcl.life.string.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,17 @@ public class UserServiceImpl implements UserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean checkPwd(User user) {
+        String PasswordNew = user.getPassword();
+        user = userDaoRedisImpl.getUser(user.getId());
+        if(user != null
+                && PasswordNew.equals(user.getPassword())){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
