@@ -1,6 +1,7 @@
 package org.jcl.life.controller.auth;
 
 import org.jcl.life.auth.*;
+import org.jcl.life.pretreat.WithPermissionController;
 import org.jcl.life.result.RetResult;
 import org.jcl.life.string.StringUtils;
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/auth")
-public class UserController {
+public class UserController extends WithPermissionController {
 
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -102,13 +103,6 @@ public class UserController {
     public RetResult addRole(Role role) {
         RetResult ret = new RetResult<Role, String>();
         roleService.addRole(role);
-        return ret;
-    }
-
-    @RequestMapping("/addPermission")
-    public RetResult addPermission(Permission permission) {
-        RetResult ret = new RetResult<Permission, String>();
-        permissionService.addPermission(permission);
         return ret;
     }
 
