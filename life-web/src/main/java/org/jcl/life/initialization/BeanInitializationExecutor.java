@@ -6,6 +6,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author chenglei
+ */
 @Component
 public class BeanInitializationExecutor implements BeanPostProcessor {
     private static Logger logger =
