@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * @author Administrator
  */
-@Component
+
 public class MyFilterSecurityInterceptior extends AbstractSecurityInterceptor implements Filter {
 
     @Autowired

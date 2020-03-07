@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * @author Administrator
  */
-@Component
+
 public class MyInvocationSecurityMetadataSourceService implements FilterInvocationSecurityMetadataSource {
 
     @Autowired

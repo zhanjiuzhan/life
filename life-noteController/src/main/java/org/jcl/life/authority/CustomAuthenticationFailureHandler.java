@@ -32,5 +32,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         logger.info("登录失败, {}");
         response.getWriter().write(e.toString());
+        throw e;
     }
 }

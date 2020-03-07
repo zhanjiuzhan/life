@@ -17,7 +17,7 @@ import java.util.Iterator;
  * 决策器
  * @author Administrator
  */
-@Component
+
 public class MyAccessDecisionManager implements AccessDecisionManager {
 
     private final Logger logger =

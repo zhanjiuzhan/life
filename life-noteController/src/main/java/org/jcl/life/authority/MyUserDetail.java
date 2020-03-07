@@ -12,11 +12,11 @@ import java.util.List;
 /**
  * @author chenglei
  */
-public class UserDetailImpl implements UserDetails {
+public class MyUserDetail implements UserDetails {
 
     private static final long serialVersionUID = 7448215284148355835L;
 
-    private final Logger logger = LoggerFactory.getLogger(UserDetailImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(MyUserDetail.class);
 
     private String userName;
     private String password;
@@ -45,7 +45,7 @@ public class UserDetailImpl implements UserDetails {
      */
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     /**
@@ -55,7 +55,7 @@ public class UserDetailImpl implements UserDetails {
      */
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     /**
@@ -65,7 +65,7 @@ public class UserDetailImpl implements UserDetails {
      */
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     /**
@@ -75,21 +75,21 @@ public class UserDetailImpl implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
 
-    public UserDetailImpl setUserName(String userName) {
+    public MyUserDetail setUserName(String userName) {
         this.userName = userName;
         return this;
     }
 
-    public UserDetailImpl setPassword(String password) {
+    public MyUserDetail setPassword(String password) {
         this.password = password;
         return this;
     }
 
-    public UserDetailImpl setGrantedAuthoritys(List<GrantedAuthority> grantedAuthoritys) {
+    public MyUserDetail setGrantedAuthoritys(List<GrantedAuthority> grantedAuthoritys) {
         this.grantedAuthoritys = grantedAuthoritys;
         return this;
     }

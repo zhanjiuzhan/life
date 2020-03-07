@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
 
@@ -23,18 +24,18 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomAuthenticationFailureHandler failureHandler;
 
     @Resource
-    private UserDetailsService authUserServiceImpl;
+    private UserDetailsService myUserDetailsManager;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll()
+        http.authorizeRequests().anyRequest().authenticated()
                 .and().sessionManagement().invalidSessionUrl("/login.html");
 
         // 开启自动配置的登陆功能，效果，如果没有登陆，没有权限就会来到登陆页面
-        http.formLogin().usernameParameter("userName").passwordParameter(
-                "password").loginPage("/login.html")
+        http.formLogin().usernameParameter("userName").passwordParameter("password")
+                .loginPage("/login.html").permitAll()
                 .loginProcessingUrl("/login")
-                .successHandler(successHandler).failureHandler(failureHandler).permitAll();
+                .successHandler(successHandler).failureHandler(failureHandler);
 
         // 开启自动配置的注销功能
         http.logout().logoutSuccessUrl("/login.html");
@@ -58,6 +59,6 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authUserServiceImpl);
+        auth.userDetailsService(myUserDetailsManager).passwordEncoder(new BCryptPasswordEncoder());;
     }
 }

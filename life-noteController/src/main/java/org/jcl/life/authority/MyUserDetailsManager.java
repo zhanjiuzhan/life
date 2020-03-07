@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,10 +19,10 @@ import java.util.List;
  * @author chenglei
  */
 @Service
-public class AuthUserServiceImpl implements UserDetailsService {
+public class MyUserDetailsManager implements UserDetailsService {
 
     private final Logger logger =
-            LoggerFactory.getLogger(AuthUserServiceImpl.class);
+            LoggerFactory.getLogger(MyUserDetailsManager.class);
 
     @Autowired
     private UserService userService;
@@ -31,12 +32,12 @@ public class AuthUserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        logger.info("取得userName[{}]", userName);
         User user = userService.getUserByName(userName);
         if (null != user) {
-            List<Role> roles = roleService.getRoles(user.getId());
+            //List<Role> roles = roleService.getRoles(user.getId());
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
+            /*
             for (Role role : roles) {
                 if (role != null && role.getName() != null) {
                     GrantedAuthority grantedAuthority =
@@ -46,13 +47,19 @@ public class AuthUserServiceImpl implements UserDetailsService {
                     // 对象中，在后面进行全权限验证时会使用GrantedAuthority 对象。
                     grantedAuthorities.add(grantedAuthority);
                 }
-            }
-            UserDetailImpl userDetails = new UserDetailImpl();
+            }*/
+            GrantedAuthority grantedAuthority =
+                    new SimpleGrantedAuthority("ROLE_cl");
+            grantedAuthorities.add(grantedAuthority);
+            MyUserDetail userDetails = new MyUserDetail();
             userDetails.setPassword(user.getPassword())
                     .setGrantedAuthoritys(grantedAuthorities)
                     .setUserName(user.getUserName());
             return userDetails;
         }
-        throw new UsernameNotFoundException("用户不存在");
+        String log = "该 [" + userName + "] 用户不存在";
+        logger.error(log);
+        throw new UsernameNotFoundException(log);
     }
+
 }
