@@ -30,16 +30,22 @@
             </div>
             <div>
                 <el-table
-                        :data="userInfo.filter(data => !search || data.userName.toLowerCase().includes(search.toLowerCase()))"
+                        :data="userInfo.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                         style="width: 100%">
                     <el-table-column
                             label="用户名"
                             prop="userName">
                     </el-table-column>
-                    <el-table-column
-                            align="right">
+                    <el-table-column align="right">
                         <template slot="header" slot-scope="scope">
-                            <el-input v-model="search" size="mini" placeholder="输入关键字搜索"></el-input>
+                            <el-row>
+                                <el-col :span="19">
+                                    <el-input v-model="search"  placeholder="输入姓名搜索"></el-input>
+                                </el-col>
+                                <el-col :span="2">
+                                    <el-button type="success" @click="searchData">搜索</el-button>
+                                </el-col>
+                            </el-row>
                         </template>
                         <template slot-scope="scope">
                             <el-button
@@ -53,9 +59,19 @@
                         </template>
                     </el-table-column>
                 </el-table>
+                <el-pagination @size-change="handleSizeChange"
+                               @current-change="handleCurrentChange"
+                               :current-page="currentPage"
+                               :page-sizes="[5, 10, 20, 50]"
+                               :page-size="pageSize"
+                               layout="total, sizes, prev, pager, next, jumper"
+                               :total="totalNum">
+                </el-pagination>
             </div>
+
         </el-card>
         </div>
+
         <div style="position:absolute; left: 2%; top: 35%;opacity:0.5; margin: 0;padding: 0px">
          <el-button @click="drawer = true" style="width: 0px;height: 200px">
             >

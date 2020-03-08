@@ -5,6 +5,7 @@ new Vue({
             name: '',
             password: '',
         },
+        list:[],
         userInfo: [],
         search: '',
         drawer: false,
@@ -16,6 +17,9 @@ new Vue({
         addUserDialog: false,
         editUserDialog: false,
         formLabelWidth: '120px',
+        currentPage: 1,
+        pageSize:5,
+        totalNum: 100,
         rules: {
             name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
             password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
@@ -79,8 +83,17 @@ new Vue({
             ).then ((res) => {
                 console.log(res.data.data);
                 this.userInfo = res.data.data;
+                this.getList();
             }).catch(function (error) {
                 console.log(error);
+                this.$message.error('获取用户信息失败');
+            });
+        },
+        getUserInfo1() {
+            axios.get('http://localhost:8081/note/auth/getUsers'
+            ).then ((res) => {
+                this.userInfo = res.data.data;
+            }).catch(function (error) {
                 this.$message.error('获取用户信息失败');
             });
         },
@@ -181,6 +194,37 @@ new Vue({
                     this.$message.error(error.toString());
                 });
             }
+        },
+        handleSizeChange(val) {
+            this.pageSize = val;
+        },
+        handleCurrentChange(val) {
+            this.currentPage = val;
+        },
+        getList() {
+            this.getUserInfo1();
+            console.log("this.userInfo1="+this.userInfo);
+            let list = this.userInfo.filter(data => !this.search || data.userName.toLowerCase().includes(this.search.toLowerCase()))
+            console.log("this.userInfo="+this.userInfo);
+            console.log("list="+list);
+            this.userInfo=list;//重新复制
+            console.log("this.userInfo="+this.userInfo);
+            list.filter((item, index) => index < this.currentPage * this.pageSize && index >= this.pageSize * (this.currentPage - 1))
+            this.totalNum = list.length
+        },
+        handleSizeChange(val) {
+            console.log('每页 ${val} 条');
+            this.pageSize = val
+            this.getList()
+        },
+        handleCurrentChange(val) {
+            console.log('当前页: ${val}');
+            this.currentPage = val
+            this.getList()
+        },
+        searchData(){
+            this.currentPage = 1
+            this.getList()
         }
     }
 });
