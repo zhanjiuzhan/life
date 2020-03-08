@@ -89,8 +89,8 @@ new Vue({
                 this.$message.error('获取用户信息失败');
             });
         },
-        getUserInfo1() {
-            axios.get('http://localhost:8081/note/auth/getUsers'
+        async getUserInfo1() {
+            return await axios.get('http://localhost:8081/note/auth/getUsers'
             ).then ((res) => {
                 this.userInfo = res.data.data;
             }).catch(function (error) {
@@ -201,29 +201,25 @@ new Vue({
         handleCurrentChange(val) {
             this.currentPage = val;
         },
-        getList() {
-            this.getUserInfo1();
-            console.log("this.userInfo1="+this.userInfo);
-            let list = this.userInfo.filter(data => !this.search || data.userName.toLowerCase().includes(this.search.toLowerCase()))
-            console.log("this.userInfo="+this.userInfo);
-            console.log("list="+list);
+        async getList() {
+            await this.getUserInfo1();
+            let list = this.userInfo.filter(data => !this.search || data.userName.toLowerCase().includes(this.search.toLowerCase()));
             this.userInfo=list;//重新复制
-            console.log("this.userInfo="+this.userInfo);
-            list.filter((item, index) => index < this.currentPage * this.pageSize && index >= this.pageSize * (this.currentPage - 1))
+            list.filter((item, index) => index < this.currentPage * this.pageSize && index >= this.pageSize * (this.currentPage - 1));
             this.totalNum = list.length
         },
         handleSizeChange(val) {
             console.log('每页 ${val} 条');
-            this.pageSize = val
+            this.pageSize = val;
             this.getList()
         },
         handleCurrentChange(val) {
             console.log('当前页: ${val}');
-            this.currentPage = val
-            this.getList()
+            this.currentPage = val;
+            this.getList();
         },
         searchData(){
-            this.currentPage = 1
+            this.currentPage = 1;
             this.getList()
         }
     }
