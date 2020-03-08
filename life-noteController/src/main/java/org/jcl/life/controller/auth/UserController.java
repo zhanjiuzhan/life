@@ -74,7 +74,22 @@ public class UserController extends WithPermissionController {
         //logger.info(user.toString() + "添加成功。");
         return ret;
     }
-
+    @RequestMapping(value="/getUserWithParam",method = RequestMethod.GET)
+    public RetResult getUserWithParam(String userName) {
+        RetResult ret = new RetResult<User, String>();
+        if (StringUtils.isNotEmpty(userName)) {
+            List<User> users = userService.getUsersWithParam(userName);
+            if (null != users) {
+                ret.setData(users);
+            }
+        }else{
+            List<User> users = userService.getUsers();
+            if (null != users) {
+                ret.setData(users);
+            }
+        }
+        return ret;
+    }
     @RequestMapping("/getUsers")
     public RetResult getUsers() {
         RetResult ret = new RetResult<List<User>, String>();
@@ -115,6 +130,13 @@ public class UserController extends WithPermissionController {
     public RetResult addRole(Role role) {
         RetResult ret = new RetResult<Role, String>();
         roleService.addRole(role);
+        return ret;
+    }
+
+    @RequestMapping("/addPermission")
+    public RetResult addPermission(Permission permission) {
+        RetResult ret = new RetResult<Permission, String>();
+        permissionService.addPermission(permission);
         return ret;
     }
 

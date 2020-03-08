@@ -65,4 +65,9 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
+
+    @Override
+    public List<User> getUsersWithParam(String param) {
+        return userDaoRedisImpl.getUsersWithParam(param);
+    }
 }

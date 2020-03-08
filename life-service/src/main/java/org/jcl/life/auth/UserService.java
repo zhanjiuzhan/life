@@ -53,4 +53,11 @@ public interface UserService {
      * @return
      */
     boolean checkPwd(User user);
+
+    /**
+     * 条件查询
+     * @param param
+     * @return
+     */
+    List<User> getUsersWithParam(String param);
 }

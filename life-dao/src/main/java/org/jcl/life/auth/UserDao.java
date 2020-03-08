@@ -44,4 +44,6 @@ public interface UserDao {
      * @return
      */
     List<User> getUsers();
+
+    List<User> getUsersWithParam(String param);
 }

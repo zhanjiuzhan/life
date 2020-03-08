@@ -89,4 +89,22 @@ public class UserDaoRedisImpl implements UserDao {
         });
         return users;
     }
+
+    @Override
+    public List<User> getUsersWithParam(String param) {
+        List<User> users = new ArrayList<User>();
+        Map userMap = redisUtils.hgetall(KEY);
+        if (userMap != null) {
+            userMap.forEach((key, value) -> {
+                if (null != value) {
+                    User user = (User) value;
+                    if (user.getUserName().contains(param)) {
+                        user.setPassword("");
+                        users.add(user);
+                    }
+                }
+            });
+        }
+        return users;
+    }
 }
