@@ -79,14 +79,16 @@ new Vue({
             console.log(index, row);
         },
         getUserInfo() {
+            this.loading=true;
             axios.get('http://localhost:8081/note/auth/getUsers'
             ).then((res) => {
                 console.log(res.data.data);
                 this.userInfo = res.data.data;
-                this.getList();
+                this.getList('first');
             }).catch(function (error) {
                 console.log(error);
                 this.$message.error('获取用户信息失败');
+                this.loading=false;
             });
         },
         menuClose() {
@@ -126,6 +128,7 @@ new Vue({
             }).catch(function (error) {
                 console.log(error);
                 this.$message.error('用户添加失败');
+                this.loading=false;
             });
         },
         editSubmit(formName) {
@@ -158,6 +161,7 @@ new Vue({
             }).catch(function (error) {
                 console.log(error);
                 this.$message.error('修改失败');
+                this.loading=false;
             });
             console.log("editSubmit");
         },
@@ -181,16 +185,12 @@ new Vue({
                 }).catch(function (error) {
                     console.log(error);
                     this.$message.error(error.toString());
+                    this.loading=false;
                 });
             }
         },
-        handleSizeChange(val) {
-            this.pageSize = val;
-        },
-        handleCurrentChange(val) {
-            this.currentPage = val;
-        },
         async getUserInfoTmp() {
+            this.loading=true;
             return await axios.get('http://localhost:8081/note/auth/getUsers'
             ).then((res) => {
                 console.log(res.data.data);
@@ -198,28 +198,35 @@ new Vue({
             }).catch(function (error) {
                 console.log(error);
                 this.$message.error('获取用户信息失败');
+                this.loading=false;
             });
         },
-        async getList() {
-            await this.getUserInfoTmp();
+        async getList(param) {
+            //条件查询时先获取全部信息
+            if(param != 'first'){
+                 await this.getUserInfoTmp();
+            }
+            //过滤条件查询信息
             let list = this.userInfo.filter(data => !this.search || data.userName.toLowerCase().includes(this.search.toLowerCase()));
-            this.userInfo = list;//重新复制
+            //二次赋值
+            this.userInfo = list;
             list.filter((item, index) => index < this.currentPage * this.pageSize && index >= this.pageSize * (this.currentPage - 1));
-            this.totalNum = list.length
+            this.totalNum = list.length;
+            this.loading=false;
         },
         handleSizeChange(val) {
-            console.log('每页 ${val} 条');
+            console.log('每页'+val+'条');
             this.pageSize = val;
-            this.getList();
+            this.getList('');
         },
         handleCurrentChange(val) {
-            console.log('当前页: ${val}');
+            console.log('当前页:'+val);
             this.currentPage = val;
-            this.getList();
+            this.getList('');
         },
         searchData() {
             this.currentPage = 1;
-            this.getList();
+            this.getList('');
         }
     }
 });
