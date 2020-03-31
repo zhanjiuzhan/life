@@ -1,4 +1,4 @@
-package org.jcl.life.controller;
+package org.jcl.life.controller.parent;
 
 import org.jcl.life.annotation.Jsonp;
 import org.springframework.web.bind.annotation.ControllerAdvice;

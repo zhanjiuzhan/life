@@ -28,7 +28,7 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated()
+        http.authorizeRequests().anyRequest().permitAll()
                 .and().sessionManagement().invalidSessionUrl("/login.html");
 
         // 开启自动配置的登陆功能，效果，如果没有登陆，没有权限就会来到登陆页面

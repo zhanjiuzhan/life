@@ -1,9 +1,10 @@
-package org.jcl.life.controller;
+package org.jcl.life.controller.test;
 
 import com.alibaba.fastjson.JSON;
 import org.jcl.life.auth.User;
 import org.jcl.life.auth.UserService;
 import org.jcl.life.auth.config.RedisUtils;
+import org.jcl.life.exception.OtherException;
 import org.jcl.life.filter.NoteUserFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,5 +68,10 @@ public class NoteController {
         redisUtils.hset("thash", "4", "haohaoxuexi");
         System.out.println(redisUtils.hget("thash", "4", String.class));
         return "redis";
+    }
+
+    @RequestMapping("/exception")
+    public void testException() throws OtherException {
+        throw new OtherException("我测试");
     }
 }

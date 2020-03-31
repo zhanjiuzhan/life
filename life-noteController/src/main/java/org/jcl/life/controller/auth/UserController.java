@@ -40,7 +40,7 @@ public class UserController extends WithPermissionController {
 
     @RequestMapping("/getUser")
     public RetResult getUser(String userId) {
-        RetResult ret = new RetResult<User, String>();
+        RetResult ret = RetResult.getRetResult(User.class);
         if (StringUtils.isNotEmpty(userId)) {
             User user = userService.getUser(userId);
             if (null != user) {
@@ -52,7 +52,7 @@ public class UserController extends WithPermissionController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public RetResult addUser(User user) {
-        RetResult ret = new RetResult<User, String>();
+        RetResult ret = RetResult.getRetResult(User.class);
         if (StringUtils.isNotEmpty(user.getUserName(), user.getPassword())) {
             boolean rs = userService.addUser(user);
             if (!rs) {
@@ -65,7 +65,7 @@ public class UserController extends WithPermissionController {
 
     @RequestMapping("/getUsers")
     public RetResult getUsers() {
-        RetResult ret = new RetResult<List<User>, String>();
+        RetResult ret = RetResult.getRetResult(List.class);
         List<User> users = userService.getUsers();
         ret.setData(users);
         return ret;
@@ -73,7 +73,7 @@ public class UserController extends WithPermissionController {
 
     @RequestMapping(value = "/delUser", method = RequestMethod.POST)
     public RetResult deleteUsers(User user) {
-        RetResult ret = new RetResult<User, String>();
+        RetResult ret = RetResult.getRetResult(User.class);
         if (StringUtils.isNotEmpty(user.getId(), user.getUserName())) {
             boolean rs = userService.delUser(user.getId());
             if (!rs) {
@@ -85,7 +85,7 @@ public class UserController extends WithPermissionController {
 
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public RetResult updateUsers(User user) {
-        RetResult ret = new RetResult<User, String>();
+        RetResult ret = RetResult.getRetResult(User.class);
         if (StringUtils.isNotEmpty(user.getId(), user.getUserName(),
                 user.getPassword())) {
             boolean rs = userService.updateUser(user);
@@ -101,21 +101,21 @@ public class UserController extends WithPermissionController {
 
     @RequestMapping("/addRole")
     public RetResult addRole(Role role) {
-        RetResult ret = new RetResult<Role, String>();
+        RetResult ret = RetResult.getRetResult(Role.class);
         roleService.addRole(role);
         return ret;
     }
 
     @RequestMapping("/addUserAndRole")
     public RetResult addRoleAndUser(RoleAndUser relation) {
-        RetResult ret = new RetResult<RoleAndUser, String>();
+        RetResult ret = RetResult.getRetResult(RoleAndUser.class);
         roleAndUserService.addRelation(relation);
         return ret;
     }
 
     @RequestMapping("/addPermissionAndRole")
     public RetResult addPermissionAndRole(PermissionAndRole relation) {
-        RetResult ret = new RetResult<PermissionAndRole, String>();
+        RetResult ret = RetResult.getRetResult(PermissionAndRole.class);
         permissionAndRoleService.addRelation(relation);
         return ret;
     }

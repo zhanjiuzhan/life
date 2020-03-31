@@ -1,7 +1,8 @@
 package org.jcl.life.result;
 
-import org.springframework.util.ObjectUtils;
-
+/**
+ * @author chenglei
+ */
 public class RetResult<D, R> {
     public static final String CODE200 = "200";
     public static final String CODE500 = "500";
@@ -9,7 +10,7 @@ public class RetResult<D, R> {
     private D data;
     private R msg;
 
-    public RetResult() {
+    private RetResult() {
         retCode = CODE200;
     }
 
@@ -17,23 +18,38 @@ public class RetResult<D, R> {
         return retCode;
     }
 
-    public void setRetCode(String retCode) {
+    public RetResult<D, R> setRetCode(String retCode) {
         this.retCode = retCode;
+        return this;
     }
 
     public D getData() {
         return data;
     }
 
-    public void setData(D data) {
+    public RetResult<D, R> setData(D data) {
         this.data = data;
+        return this;
     }
 
     public R getMsg() {
         return msg;
     }
 
-    public void setMsg(R msg) {
+    public RetResult<D, R> setMsg(R msg) {
         this.msg = msg;
+        return this;
+    }
+
+    public static <D, R> RetResult getRetResult(Class<D> D, Class<R> R) {
+        return new RetResult<D, R>();
+    }
+
+    public static <D> RetResult getRetResult(Class<D> D) {
+        return new RetResult<D, String>();
+    }
+
+    public static  RetResult getRetResult() {
+        return new RetResult<String, String>();
     }
 }
