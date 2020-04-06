@@ -15,6 +15,7 @@
         <module>life-util</module>
         <module>life-web</module>
         <module>life-noteController</module>
+        <module>life-socket</module>
     </modules>
 
     <!--
