@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.UUID;
@@ -19,7 +20,7 @@ import java.util.UUID;
 public class FileController {
 
     @RequestMapping("/upload")
-    public String upload(@RequestParam("file")MultipartFile file) throws FileNotFoundException {
+    public String upload(@RequestParam("file")MultipartFile file, HttpServletRequest request) throws FileNotFoundException {
         String classPath = ResourceUtils.getURL("classpath:").getPath();
         String fileName = file.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -44,9 +45,6 @@ public class FileController {
         File file = new File(path);
         System.out.println(file.isDirectory());
         System.out.println(ClassUtils.getDefaultClassLoader().getResource("").getPath());
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
+
     }
 }
